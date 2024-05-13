@@ -24,8 +24,8 @@ const assertProblemSchema = (schema) => {
     throw "Problem json must have type 'object'";
   }
   const type = (schema.properties || {}).type || {};
-  if (type.type !== 'string' || type.format !== 'uri') {
-    throw "Problem json must have property 'type' with type 'string' and format 'uri'";
+  if (type.type !== 'string' || type.format !== 'uri-reference') {
+    throw "Problem json must have property 'type' with type 'string' and format 'uri-reference'";
   }
   const title = (schema.properties || {}).title || {};
   if (title.type !== 'string') {
@@ -33,7 +33,7 @@ const assertProblemSchema = (schema) => {
   }
   const status = (schema.properties || {}).status || {};
   if (status.type !== 'integer' || status.format !== 'int32') {
-    throw "Problem json must have property 'status' with type 'integer' and format 'int32'";
+    throw "Problem json must have property 'status' with type 'integer' and format 'in32'";
   }
   const detail = (schema.properties || {}).detail || {};
   if (detail.type !== 'string') {
@@ -45,33 +45,8 @@ const assertProblemSchema = (schema) => {
   }
 };
 
-/*
- * Merge list of schema definitions of type = 'object'.
- * Return object will have a super set of attributes 'properties' and 'required'.
- */
-const mergeObjectDefinitions = (allOfTypes) => {
-  if (allOfTypes.filter((item) => item.type !== 'object').length !== 0) {
-    throw "All schema definitions must be of type 'object'";
-  }
-
-  return allOfTypes.reduce((acc, item) => {
-    return {
-      type: 'object',
-      properties: { ...(acc.properties || {}), ...(item.properties || {}) },
-      required: [...(acc.required || []), ...(item.required || [])],
-    };
-  }, {});
-};
-
 const check = (schema) => {
-  const combinedSchemas = [...(schema.anyOf || []), ...(schema.oneOf || [])];
-  if (schema.allOf) {
-    const mergedAllOf = mergeObjectDefinitions(schema.allOf);
-    if (mergedAllOf) {
-      combinedSchemas.push(mergedAllOf);
-    }
-  }
-
+  const combinedSchemas = [...(schema.anyOf || []), ...(schema.oneOf || []), ...(schema.allOf || [])];
   if (combinedSchemas.length > 0) {
     combinedSchemas.forEach(check);
   } else {
