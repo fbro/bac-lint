@@ -1,0 +1,15 @@
+site_name: BAC linter
+site_description: Spectral linting used in Backstage
+
+nav:
+  - Introduction: 'index.md'
+
+plugins:
+  - techdocs-core
+  - awesome-pages
+
+markdown_extensions:
+  - pymdownx.blocks.admonition
+  - pymdownx.blocks.details
+  - pymdownx.blocks.tab:
+      alternate_style: true

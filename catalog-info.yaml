@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "BAC-Lint"
+  description: "Spectral linting used in Backstage"
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - backstage
+    - golden-path
+spec:
+  type: documentation
+  lifecycle: production
+  owner: developer_portal_core
+  system: GOP
