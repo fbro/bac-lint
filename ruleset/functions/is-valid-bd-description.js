@@ -1,10 +1,11 @@
 'use strict';
 
 const assertValidBankdataDescription = (schema) => {
-    if(!schema.match("(# Summary)(.*\n)+(# About .*)(.*\n)+(# SLA)(.*\n)+(# Authentication)(.*\n)+(# Authorization)(.*\n)+")){
-        throw "Description should include Summary, About, SLA, Authentication, Authorization in that order";
-    }
+  if(!schema.match("(# Summary)(.*\n)+(# About .*)(.*\n)+(# Service Level Objectives \\\(Global values\\\))(.*\n)+(# Authentication)(.*\n)+(# Authorization)(.*\n)+")){
+    throw "Description should include Summary, About, Service Level Objectives (Global values), Authentication, Authorization in that order";
+  }
 };
+
 
 const check = (schema) => {
   const combinedSchemas = [...(schema.anyOf || []), ...(schema.oneOf || []), ...(schema.allOf || [])];
