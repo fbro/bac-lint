@@ -1,5 +1,5 @@
 {
-  "description": "**Set of rules to enforce Zalando Restful API guidelines**\r\n\r\nTo use these rules: \r\n1. Go to your Stoplight workspace.\r\n2. Create a [style guide project](https://docs.stoplight.io/docs/platform/364e30f79daa0-create-a-style-guide) OR edit a project that has an API.\r\n3. Select **Manage Style Guides**.\r\n4. Enable `Zalando` from list of public style guides.\r\n\r\nYou can then:\r\n\r\n- Use the style guide as-is to [automatically lint](https://docs.stoplight.io/docs/platform/7975f76a794c4-validation-and-linting) your API files\r\n- [Disable individual rules](https://docs.stoplight.io/docs/platform/3f80fd36750e3-disable-inherited-rules)  that do not follow your organization's standards\r\n- [Reuse and customize rules](https://docs.stoplight.io/docs/platform/2331c5241ddfc) to meet your needs\r\n\r\nNot covered: Zalando guidelines [223](https://opensource.zalando.com/restful-api-guidelines/#223), [224](https://opensource.zalando.com/restful-api-guidelines/#224), [104](https://opensource.zalando.com/restful-api-guidelines/#104), [105](https://opensource.zalando.com/restful-api-guidelines/#105), and [225](https://opensource.zalando.com/restful-api-guidelines/#225)",
+  "description": "**Set of rules to enforce Bankdata Restful API guidelines**\r\n\r\nTo use these rules: \r\nFollow [installation guide](https://portal.bankdata.dev/docs/default/component/kap-api-linting-rules/)\r\nNot all rules are covered by Spectral rules, refer to (rule documentation)[https://portal.bankdata.dev/docs/default/component/kap-api-linting-rules/rule-descriptions/docs/] for more information.\r\nThis ruleset extends and modifies (Zalandos Spectral ruleset)[https://apistylebook.stoplight.io/docs/zalando-restful-api-guidelines]",
   "formats": [
     "oas2",
     "oas3",
@@ -16,7 +16,7 @@
       "then": {
         "function": "is-object-schema"
       },
-      "description": "The top-level data structure for a`request body` or `response body` must be an object.\r\n\r\n**Invalid Example**\r\n\r\n```yaml lineNumbers\r\nrequestBody:\r\n   content:\r\n     application/json:\r\n       schema:\r\n         type: array\r\n         items:\r\n           type: string\r\n```\r\n\r\n**Valid Example**\r\n\r\n```yaml lineNumbers\r\nrequestBody:\r\n   content:\r\n     application/json:\r\n       schema:\r\n         type: object\r\n         properties:\r\n           first_name:\r\n             type: string\r\n           last_name:\r\n             type: string\r\n```\r\n\r\n[Zalando Guideline 210](https://opensource.zalando.com/restful-api-guidelines/#210)",
+      "description": "The top-level data structure for a`request body` or `response body` must be an object.\r\n\r\n**Invalid Example**\r\n\r\n```yaml lineNumbers\r\nrequestBody:\r\n   content:\r\n     application/json:\r\n       schema:\r\n         type: array\r\n         items:\r\n           type: string\r\n```\r\n\r\n**Valid Example**\r\n\r\n```yaml lineNumbers\r\nrequestBody:\r\n   content:\r\n     application/json:\r\n       schema:\r\n         type: object\r\n         properties:\r\n           first_name:\r\n             type: string\r\n           last_name:\r\n             type: string\r\n```\r\n\r\n[Bankdata Guideline 7](https://portal.bankdata.dev/docs/default/component/kap-api-linting-rules/rule-descriptions/docs/#must-not-return-arrays-as-top-level-response-bd-7) and [Zalando Guideline 210](https://opensource.zalando.com/restful-api-guidelines/#210)",
       "message": "Top-level data structure must be an object"
     },
     "should-use-x-extensible-enum": {
@@ -41,7 +41,7 @@
           "match": "^/v[0-9]+/"
         }
       },
-      "description": "Path must start with a version. \r\n\r\n**Invalid Example**\r\n\r\n```yaml\r\n /user/v2:\r\n```\r\n\r\n**Valid Example**\r\n\r\n```yaml\r\n /v1/user:\r\n```\r\n\r\n[Bankdata API guidelines - Versioning](https://confluence.bankdata.eficode.io/x/gYzDC)\r\n",
+      "description": "Path must start with a version. \r\n\r\n**Invalid Example**\r\n\r\n```yaml\r\n /user/v2:\r\n```\r\n\r\n**Valid Example**\r\n\r\n```yaml\r\n /v1/user:\r\n```\r\n\r\n[Bankdata Guidelines 5](https://portal.bankdata.dev/docs/default/component/kap-api-linting-rules/rule-descriptions/docs/#must-use-uri-versioning-bd-5)\n",
       "message": "Path must contain versioning"
     },
     "must-use-camel-case-for-property-names": {
@@ -369,7 +369,7 @@
       "then": {
         "function": "is-valid-bd-description"
       },
-      "description": "The `info.description` object must be a valid Bankdata API description.\n\n**Valid Example**\n\n```yaml lineNumbers\ninfo:\n  description: |\n    # Summary\n    # About {domain}\n    # SLA\n    # Authentication\n  ...\n```\n\n[Bankdata API Standard - Description](https://confluence.bankdata.eficode.io/x/kIwcDg)\n\n",
+      "description": "The `info.description` object must be a valid Bankdata API description.\n\n**Valid Example**\n\n```yaml lineNumbers\ninfo:\n  description: |\n    # Summary\n    # About {domain}\n    # SLA\n    # Authentication\n  ...\n```\n[Bankdata Guidelines 2](https://portal.bankdata.dev/docs/default/component/kap-api-linting-rules/rule-descriptions/docs/#must-provide-summary-in-api-description-bd-2) and [Bankdata Guideline 3](https://portal.bankdata.dev/docs/default/component/kap-api-linting-rules/rule-descriptions/docs/#must-provide-security-schemes-in-api-description-bd-3)\n",
       "message": "{{error}}"
     },
     "must-have-info-contact-name": {
@@ -441,7 +441,7 @@
         {
           "function": "pattern",
           "functionOptions": {
-            "match": "^(component-internal|business-unit-internal|company-internal|external-partner|external-public)$"
+            "match": "^(internal-component|internal-bankdata|external-pi|external-partner)$"
           },
           "field": "x-audience"
         },
@@ -450,8 +450,24 @@
           "field": "x-audience"
         }
       ],
-      "description": "The `info` object must have an `x-audience` that matches at least one of these values:\n\n* component-internal\n* business-unit-internal\n* company-internal\n* external-partner\n* external-public\n\n**Valid Example**\n\n```yaml\ninfo:\n  title: Payments API\n  x-audience: \n    - company-internal\n    - business-unit-internal\n```\n[Zalando Guideline 219](https://opensource.zalando.com/restful-api-guidelines/#219)\n",
+      "description": "The `info` object must have an `x-audience` that matches at least one of these values:\n\n* internal-component\n* internal-bankdata\n* external-pi\n* external-partner\n\n**Valid Example**\n\n```yaml\ninfo:\n  title: Payments API\n  x-audience: \n    - internal-bankdata\n    - external-pi\n```\n[Bankdata Guideline 4](https://portal.bankdata.dev/docs/default/component/kap-api-linting-rules/rule-descriptions/docs/#must-provide-api-audience-bd-4)\n",
       "message": "Missing or wrong `info.x-audience`."
+    },
+    "must-provide-slo-in-info": {
+      "given": [
+        "$.info"
+      ],
+      "then": [
+        {
+          "function": "is-slo-defined-in-info",
+          "functionOptions": {
+            "audiences": ["internal-bankdata","external-pi","external-partner"]
+          }
+        }
+      ],
+      "description": "All paths and methods must have SLO defined.\n[Bankdata Guideline 6](https://portal.bankdata.dev/docs/default/component/kap-api-linting-rules/rule-descriptions/docs/#must-provide-service-level-agreement-and-objective-for-each-endpoint-bd-6)\n",
+      "message": "Missing Service Level Objectives for path",
+      "severity": "error"
     },
     "should-declare-enum-values-using-upper-snake-case-format": {
       "given": [
@@ -500,7 +516,7 @@
           "field": "version"
         }
       ],
-      "description": "The `info` object must have a `version` property that follows [semantic rules](http://semver.org/spec/v2.0.0.html) to distinguish API versions.\n\n**Invalid Example**\n\n```yaml lineNumbers\ninfo:\n  title: ...\n  description: ...\n  version: 1\n  <...>\n```\n**Valid Example**\n\n```yaml lineNumbers\ninfo:\n  title: ...\n  description: ...\n  version: 1.1.0\n  ...\n```\n\n[Zalando Guideline 218](https://opensource.zalando.com/restful-api-guidelines/#218) and [Zalando Guideline 116](https://opensource.zalando.com/restful-api-guidelines/#116)\n",
+      "description": "The `info` object must have a `version` property that follows [semantic rules](http://semver.org/spec/v2.0.0.html) to distinguish API versions.\n\n**Invalid Example**\n\n```yaml lineNumbers\ninfo:\n  title: ...\n  description: ...\n  version: 1\n  <...>\n```\n**Valid Example**\n\n```yaml lineNumbers\ninfo:\n  title: ...\n  description: ...\n  version: 1.1.0\n  ...\n```\n\n[Bankdata Guideline 1](https://portal.bankdata.dev/docs/default/component/kap-api-linting-rules/rule-descriptions/docs/#must-not-pollute-api-version-with-date-of-release-bd-1) and [Zalando Guideline 218](https://opensource.zalando.com/restful-api-guidelines/#218) and [Zalando Guideline 116](https://opensource.zalando.com/restful-api-guidelines/#116)\n",
       "message": "Must have API version defined in `info.version`"
     }
   },
@@ -508,7 +524,8 @@
     "is-object-schema",
     "is-problem-json-schema",
     "count-resource-types",
-    "is-valid-bd-description"
+    "is-valid-bd-description",
+    "is-slo-defined-in-info"
   ],
   "functionsDir": "functions"
 }
